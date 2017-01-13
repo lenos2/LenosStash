@@ -332,6 +332,7 @@ public class EventActivity extends AppCompatActivity {
             for (int i = 0; i < resources.length; i++) {
                 ImageView imageView = new ImageView(this);
                 imageView.setImageResource(resources[i]);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 mViewFlipper.addView(imageView);
             }
         } else {
