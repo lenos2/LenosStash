@@ -8,29 +8,18 @@
     android:background="@color/white">
 
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/view">
-
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
             android:id="@+id/relativeLayout"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
 
             <ViewFlipper
                 android:layout_width="fill_parent"
@@ -39,43 +28,52 @@
 
             </ViewFlipper>
 
-            <TextView
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="STEPHEN MAGOLIS RESORT"
-                android:id="@+id/tvEvent_Venue"
-                android:textColor="@color/white"
-                android:layout_above="@+id/tvEvent_Date"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="RAS 2016"
-                android:id="@+id/tvEvent_Name"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:textSize="40dp"
-                android:textColor="@color/white"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:textAlignment="center"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="29 September - 2 October"
-                android:id="@+id/tvEvent_Date"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginBottom="23dp"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal" />
+                android:background="@drawable/gradient_black_to_white">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RAS 2016"
+                    android:id="@+id/tvEvent_Name"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:textStyle="bold"
+                    android:textSize="40dp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="STEPHEN MAGOLIS RESORT"
+                    android:id="@+id/tvEvent_Venue"
+                    android:textColor="@color/white"
+                    android:layout_above="@+id/tvEvent_Date"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="29 September - 2 October"
+                    android:id="@+id/tvEvent_Date"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+
         </RelativeLayout>
 
         <FrameLayout
@@ -215,5 +213,20 @@
 
         </FrameLayout>
     </LinearLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/view">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00000000"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
 
 </RelativeLayout>

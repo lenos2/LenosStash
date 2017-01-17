@@ -5,14 +5,17 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" tools:showIn="@layout/app_bar_home"
     tools:context="org.rotaract9210.d9210events.HomeActivity"
-    android:background="@mipmap/background">
+    android:background="@mipmap/background"
+    android:layout_centerVertical="false"
+    android:layout_gravity="center_vertical">
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:layout_marginTop="40dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -67,96 +70,96 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:text="RAS 2016"
+                    android:id="@+id/tvHome_RAS_2016"
+                    android:gravity="center_horizontal"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/yellow_button_response"
+                    android:textColor="@color/white"
+                    android:paddingTop="20dp"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:text="DISCON 2016"
+                    android:id="@+id/tvHome_DISCON"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="70dp"
+                    android:layout_alignTop="@+id/tvHome_RAS_2016"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/blue_button_bg_response"
+                    android:textColor="@color/white"
+                    android:paddingTop="20dp"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:text="RYLA SUMMIT"
+                    android:id="@+id/tvHome_RYLA"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="140dp"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/yellow_button_response"
+                    android:textColor="@color/white"
+                    android:paddingTop="20dp"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:text="INDUCTIONS"
+                    android:id="@+id/tvHome_Inductions"
+                    android:gravity="center_horizontal"
+                    android:layout_alignTop="@+id/tvHome_RAS_2016"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="210dp"
+                    android:background="@drawable/blue_button_bg_response"
+                    android:textColor="@color/white"
+                    android:paddingTop="20dp"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:text="SOCIAL EVENTS"
+                    android:id="@+id/tvHome_Social_Events"
+                    android:gravity="center_horizontal"
+                    android:layout_alignTop="@+id/tvHome_RAS_2016"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="280dp"
+                    android:background="@drawable/yellow_button_response"
+                    android:textColor="@color/white"
+                    android:paddingTop="20dp"
+                    android:textSize="30dp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:text="PROJECTS"
+                    android:id="@+id/tvHome_Projects"
+                    android:gravity="center_horizontal"
+                    android:layout_alignTop="@+id/tvHome_RAS_2016"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="350dp"
+                    android:background="@drawable/blue_button_bg_response"
+                    android:textColor="@color/white"
+                    android:paddingTop="20dp"
+                    android:textSize="30dp" />
+            </RelativeLayout>
         </ScrollView>
 
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:text="RAS 2016"
-        android:id="@+id/tvHome_RAS_2016"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@mipmap/slice41"
-        android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:textSize="30dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:text="DISCON 2016"
-        android:id="@+id/tvHome_DISCON"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:layout_alignTop="@+id/tvHome_RAS_2016"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@mipmap/slice40"
-        android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:textSize="30dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:text="RYLA SUMMIT"
-        android:id="@+id/tvHome_RYLA"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:gravity="center_horizontal"
-        android:background="@mipmap/slice41"
-        android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:textSize="30dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:text="INDUCTIONS"
-        android:id="@+id/tvHome_Inductions"
-        android:gravity="center_horizontal"
-        android:layout_alignTop="@+id/tvHome_RAS_2016"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="150dp"
-        android:background="@mipmap/slice40"
-        android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:textSize="30dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:text="SOCIAL EVENTS"
-        android:id="@+id/tvHome_Social_Events"
-        android:gravity="center_horizontal"
-        android:layout_alignTop="@+id/tvHome_RAS_2016"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:background="@mipmap/slice41"
-        android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:textSize="30dp" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:text="PROJECTS"
-        android:id="@+id/tvHome_Projects"
-        android:gravity="center_horizontal"
-        android:layout_alignTop="@+id/tvHome_RAS_2016"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp"
-        android:background="@mipmap/slice40"
-        android:textColor="@color/white"
-        android:paddingTop="20dp"
-        android:textSize="30dp" />
 
 </RelativeLayout>

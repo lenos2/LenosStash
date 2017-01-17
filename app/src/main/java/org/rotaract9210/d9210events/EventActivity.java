@@ -85,7 +85,7 @@ public class EventActivity extends AppCompatActivity {
 
         eventName = getIntent().getStringExtra("event");
 
-        btnSpeakers = (Button)findViewById(R.id.btnEvent_Speakers);
+
         tvName = (TextView)findViewById(R.id.tvEvent_Name);
         tvVenue = (TextView)findViewById(R.id.tvEvent_Venue);
         tvDate = (TextView)findViewById(R.id.tvEvent_Date);
@@ -112,18 +112,12 @@ public class EventActivity extends AppCompatActivity {
         mViewFlipper.setFlipInterval(4000); // flip every 4 seconds (4000ms)
 
         switch (getIntent().getStringExtra("event")){
-            case "ras":
+            case "RAS 2016":
 
                 tvName.setText("RAS 2016");
                 tvVenue.setText("STEPHEN MARGOLIS RESORT");
                 tvDate.setText("29 September - 2 October");
-                btnSpeakers.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(),MenuActivity.class)
-                                .putExtra("menu","speakers"));
-                    }
-                });
+
                 break;
             case "discon":
                 tvName.setText("DISCON");
@@ -151,6 +145,15 @@ public class EventActivity extends AppCompatActivity {
                 break;
             default:
         }
+
+        btnSpeakers = (Button) findViewById(R.id.btnEvent_Speakers);
+        btnSpeakers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class)
+                        .putExtra("menu", "speakers"));
+            }
+        });
 
         btnRegister = (Button)findViewById(R.id.btnEvent_Register);
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -209,38 +212,6 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void openProgramPDf(){
-        // create a File object for the parent directory
-        File extStore = Environment.getExternalStorageDirectory();
-        File IPDirectory = new File(extStore.getAbsolutePath() + "/d9210/"+eventName+"/event/");
-        IPDirectory.mkdirs();
-        File f = new File(IPDirectory,"Rotaract-Africa-Summit-2016-Programme.pdf");
-        try {
-
-            InputStream is = getAssets().open("Rotaract-Africa-Summit-2016-Programme.pdf");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-
-
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(buffer);
-            fos.close();
-        } catch (Exception e) { throw new RuntimeException(e); }
-
-
-                /*Intent intent = new Intent(getApplicationContext(), ProgramActivity.class);
-                intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, getCacheDir()+"/m1.pdf");
-                startActivity(intent);*/
-
-        File file = new File(IPDirectory,"Rotaract-Africa-Summit-2016-Programme.pdf");
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
     }
 
     @Override

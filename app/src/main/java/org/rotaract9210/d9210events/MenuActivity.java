@@ -108,21 +108,15 @@ public class MenuActivity extends AppCompatActivity {
     public void populateProgram(){
 
         DBHelper helper = new DBHelper(MenuActivity.this);
-        String[] program;
 
         listView.setDivider(ContextCompat.getDrawable(this, R.drawable.divider_grey));
-        program = getResources().getStringArray(R.array.program);
+        listView.setItemsCanFocus(true);
         final ArrayList<EventMessage> programList = new ArrayList<>();
         Iterator iterator = helper.getDaysProgram(getIntent().getStringExtra("event")).iterator();
         while (iterator.hasNext()) {
             programList.add((EventMessage) iterator.next());
         }
-        /*int i=0;
-        for (String day : program){
-            programList.add(new EventMessage("Program",day,"Day "+ ++i));
-        }*/
 
-        //programList = helper.getDaysProgram(getIntent().getStringExtra("event"))
         EventArrayAdapter programAdapter = new EventArrayAdapter(getApplicationContext(),programList);
         listView.setAdapter(programAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -146,32 +140,6 @@ public class MenuActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*if (position == 0){
-                    // create a File object for the parent directory
-                    File extStore = Environment.getExternalStorageDirectory();
-                    File IPDirectory = new File(extStore.getAbsolutePath() + "/d9210/ras/about/");
-                    IPDirectory.mkdirs();
-                    File f = new File(IPDirectory,"D9210_RACAfricaSummit_Presidential_Letter.pdf");
-                    try {
-
-                        InputStream is = getAssets().open("D9210_RACAfricaSummit_Presidential_Letter.pdf");
-                        int size = is.available();
-                        byte[] buffer = new byte[size];
-                        is.read(buffer);
-                        is.close();
-
-
-                        FileOutputStream fos = new FileOutputStream(f);
-                        fos.write(buffer);
-                        fos.close();
-                    } catch (Exception e) { throw new RuntimeException(e); }
-
-                    File file = new File(IPDirectory,"D9210_RACAfricaSummit_Presidential_Letter.pdf");
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    startActivity(intent);
-                } else{*/
                     Speakers theSpeaker = adapter.getItem(position);
                     Intent speakerIntent = new Intent(getApplicationContext(), AboutActivity.class);
                     speakerIntent.putExtra("name", theSpeaker.getProfession())
@@ -180,7 +148,6 @@ public class MenuActivity extends AppCompatActivity {
                             .putExtra("pic", theSpeaker.getPic());
 
                     startActivity(speakerIntent);
-            //    }
             }
         });
     }
@@ -415,11 +382,6 @@ public class MenuActivity extends AppCompatActivity {
                     fos.write(buffer);
                     fos.close();
                 } catch (Exception e) { throw new RuntimeException(e); }
-
-
-                /*Intent intent = new Intent(getApplicationContext(), ProgramActivity.class);
-                intent.putExtra(PdfViewerActivity.EXTRA_PDFFILENAME, getCacheDir()+"/m1.pdf");
-                startActivity(intent);*/
 
                 File file = new File(IPDirectory,fileName);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
