@@ -228,4 +228,6 @@ District 9210"
     <string name="title_activity_image_view">Picture</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="name">Name</string>
+    <string name="post">Post</string>
 </resources>

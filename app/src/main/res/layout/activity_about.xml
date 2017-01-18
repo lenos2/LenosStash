@@ -16,30 +16,25 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
                 android:id="@+id/ivAbout_Event_Pic"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:contentDescription="Image"
                 android:src="@mipmap/floatboat_and_gazebo" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Name"
+                android:text="@string/name"
                 android:id="@+id/tvAbout_Event_Name"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:typeface="sans" />
@@ -50,21 +45,15 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/tvAbout_Title"
                 android:textAlignment="center"
-                android:textSize="20dp"
-                android:text="Post"
+                android:textSize="20sp"
+                android:text="@string/post"
                 android:typeface="sans" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Message"
-                android:id="@+id/tvAbout_Event_Description"
-                android:layout_gravity="center_horizontal"
-                android:textSize="15dp"
-                android:layout_marginTop="5dp"
-                android:textColor="#000000"
-                android:typeface="sans" />
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/webview"
+                android:background="#00000000" />
         </LinearLayout>
     </ScrollView>
 

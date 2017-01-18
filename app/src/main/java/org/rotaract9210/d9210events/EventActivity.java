@@ -38,6 +38,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class EventActivity extends AppCompatActivity {
@@ -151,7 +152,7 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MenuActivity.class)
-                        .putExtra("menu", "speakers"));
+                        .putExtra("menu", "speakers").putExtra("event", eventName));
             }
         });
 
@@ -161,6 +162,7 @@ public class EventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent registerIntent = new Intent(getApplicationContext(),RegisterEventActivity.class);
                 registerIntent.putExtra("registration","http://ras.rotaract9210.org/index.php/conference-registration-options/");
+                registerIntent.putExtra("event", eventName);
                 startActivity(registerIntent);
             }
         });
@@ -180,7 +182,7 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),TwitterActivity.class)
-                        .putExtra("tweet",tweet));
+                        .putExtra("tweet", tweet).putExtra("event", eventName));
             }
         });
         btnSponsors = (Button)findViewById(R.id.btnEvent_Sponsors);
@@ -188,19 +190,15 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),MenuActivity.class)
-                        .putExtra("menu", "sponsors"));
+                        .putExtra("menu", "sponsors").putExtra("event", eventName));
             }
         });
         btnAbout = (Button)findViewById(R.id.btnEvent_About);
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                extras.putParcelable("picture",);
-//                extras.putParcelable("eventName", "the event");
-//                extras.putParcelable("eventDescription", "the best app");
-
                 startActivity(new Intent(getApplicationContext(), MenuActivity.class)
-                        .putExtra("menu","about"));
+                        .putExtra("menu", "about").putExtra("event", eventName));
             }
         });
         btnGallary = (Button)findViewById(R.id.btnEvent_Gallery);
@@ -300,9 +298,9 @@ public class EventActivity extends AppCompatActivity {
         }*/
 
         if (!(new File(SharedValues.appFile + eventName + "slider").exists())) {
-            for (int i = 0; i < resources.length; i++) {
+            for (int resource : resources) {
                 ImageView imageView = new ImageView(this);
-                imageView.setImageResource(resources[i]);
+                imageView.setImageResource(resource);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 mViewFlipper.addView(imageView);
             }
@@ -335,7 +333,7 @@ public class EventActivity extends AppCompatActivity {
             // response code '200'
             @Override
             public void onSuccess(String response) {
-                verify = Base64.decode(response.getBytes(), Base64.DEFAULT).toString();
+                verify = Arrays.toString(Base64.decode(response.getBytes(), Base64.DEFAULT));
                 writeToStorage(event, file, response);
             }
 

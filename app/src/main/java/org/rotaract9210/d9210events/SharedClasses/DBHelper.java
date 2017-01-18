@@ -3,16 +3,17 @@ package org.rotaract9210.d9210events.SharedClasses;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
+import org.rotaract9210.d9210events.myObjects.Message;
 
 import java.util.ArrayList;
 
 /**
  * Created by Leo on 9/8/2016.
+ * This is the class responsible for handling all communications with the database
  */
 public class DBHelper extends SQLiteAssetHelper {
 
@@ -60,14 +61,10 @@ public class DBHelper extends SQLiteAssetHelper {
     }
 
     public Cursor getSpeakers(String event){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM speakers WHERE event= "+event,null);
-        return res;
+        return this.getReadableDatabase().rawQuery("SELECT * FROM speakers WHERE event= " + event, null);
     }
     public Cursor getEvent(String event){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM events where event = "+event,null);
-        return res;
+        return this.getReadableDatabase().rawQuery("SELECT * FROM events where event = " + event, null);
     }
 
     public boolean updateSpeaker(String name,String profession,String bio,String picture,String event){
@@ -94,7 +91,7 @@ public class DBHelper extends SQLiteAssetHelper {
         Cursor res = db.rawQuery("SELECT * FROM speakers WHERE event ="+event,null);
         res.moveToFirst();
 
-        while(res.isAfterLast() == false){
+        while (!res.isAfterLast()) {
 
             speaker = new Speakers(
                     res.getString(res.getColumnIndex("name"))
@@ -106,6 +103,7 @@ public class DBHelper extends SQLiteAssetHelper {
             arrayList.add(speaker);
             res.moveToNext();
         }
+        res.close();
         return  arrayList;
     }
 
@@ -116,12 +114,13 @@ public class DBHelper extends SQLiteAssetHelper {
         Cursor res = db.rawQuery("SELECT * FROM events",null);
         res.moveToFirst();
 
-        while(res.isAfterLast() == false){
+        while (!res.isAfterLast()) {
 
             //,res.getString(res.getColumnIndex("name")));
             arrayList.add(res.getString(res.getColumnIndex("name")));
             res.moveToNext();
         }
+        res.close();
         return  arrayList;
     }
 
@@ -131,7 +130,7 @@ public class DBHelper extends SQLiteAssetHelper {
         Cursor res = db.rawQuery("SELECT DISTINCT program.day,program.date,program.summary FROM program WHERE program.event_id = " + getEventID(eventName), null);
         res.moveToFirst();
 
-        while (res.isAfterLast() == false) {
+        while (!res.isAfterLast()) {
             arraylist.add(new EventMessage(
                     res.getString(res.getColumnIndex("summary")),
                     res.getString(res.getColumnIndex("date")),
@@ -139,9 +138,28 @@ public class DBHelper extends SQLiteAssetHelper {
             ));
             res.moveToNext();
         }
+        res.close();
         return arraylist;
     }
 
+    public ArrayList<Message> getMessages(String eventName) {
+        ArrayList<Message> arraylist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT *  FROM messages WHERE messages.event_id = " + getEventID(eventName), null);
+        res.moveToFirst();
+
+        while (!res.isAfterLast()) {
+            arraylist.add(new Message(
+                    res.getString(res.getColumnIndex("event_id")),
+                    res.getString(res.getColumnIndex("name")),
+                    res.getString(res.getColumnIndex("title")),
+                    res.getString(res.getColumnIndex("message"))
+            ));
+            res.moveToNext();
+        }
+        res.close();
+        return arraylist;
+    }
     public ArrayList<ProgramItem> getEventProgram(String eventName){
 
         ArrayList<ProgramItem> arraylist = new ArrayList<>();
@@ -149,7 +167,7 @@ public class DBHelper extends SQLiteAssetHelper {
         Cursor res = db.rawQuery("SELECT * FROM program WHERE event_id="+getEventID(eventName),null);
         res.moveToFirst();
 
-        while(res.isAfterLast() == false){
+        while (!res.isAfterLast()) {
             arraylist.add(new ProgramItem(
                     res.getString(res.getColumnIndex("day")),
                     res.getString(res.getColumnIndex("date")),
@@ -160,17 +178,18 @@ public class DBHelper extends SQLiteAssetHelper {
             ));
             res.moveToNext();
         }
+        res.close();
         return arraylist;
     }
 
-    public int getEventID(String eventName){
+    private int getEventID(String eventName) {
         int id;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("SELECT id FROM events WHERE event_name='"+eventName+"'",null);
         res.moveToFirst();
 
         id = res.getInt(0);
-
+        res.close();
         return id;
     }
 }

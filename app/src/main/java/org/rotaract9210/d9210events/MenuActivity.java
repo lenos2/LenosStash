@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ import org.rotaract9210.d9210events.SharedClasses.EventMessage;
 import org.rotaract9210.d9210events.SharedClasses.Speakers;
 import org.rotaract9210.d9210events.SharedClasses.SpeakersArrayAdapter;
 import org.rotaract9210.d9210events.SharedClasses.Club;
+import org.rotaract9210.d9210events.myObjects.Message;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +36,7 @@ import java.util.Iterator;
 
 /**
  * Created by Leo on 9/2/2016.
+ * This class is responsible for all menu activities generated in the application
  */
 public class MenuActivity extends AppCompatActivity {
 
@@ -57,7 +60,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         toolbar.setTitle("Menu");
-        toolbar.setSubtitleTextColor(000000);
+        toolbar.setSubtitleTextColor(0);
 
         frameLayout = (FrameLayout)findViewById(R.id.frameLayout);
         listView = (ListView)findViewById(R.id.list);
@@ -112,9 +115,8 @@ public class MenuActivity extends AppCompatActivity {
         listView.setDivider(ContextCompat.getDrawable(this, R.drawable.divider_grey));
         listView.setItemsCanFocus(true);
         final ArrayList<EventMessage> programList = new ArrayList<>();
-        Iterator iterator = helper.getDaysProgram(getIntent().getStringExtra("event")).iterator();
-        while (iterator.hasNext()) {
-            programList.add((EventMessage) iterator.next());
+        for (Object o : helper.getDaysProgram(getIntent().getStringExtra("event"))) {
+            programList.add((EventMessage) o);
         }
 
         EventArrayAdapter programAdapter = new EventArrayAdapter(getApplicationContext(),programList);
@@ -131,10 +133,19 @@ public class MenuActivity extends AppCompatActivity {
     }
     public void populateAbout(){
         adapter = new SpeakersArrayAdapter(this);
-        adapter.add(new Speakers("Rotary International President's Message", "John F. Germ", getResources().getString(R.string.john_germ), "", "",R.mipmap.john_germ));
-        adapter.add(new Speakers("Convenor's Message", "Allistar Volo", getResources().getString(R.string.a_Volo), "", "",R.mipmap.allistar_volo));
-        adapter.add(new Speakers("District Governor's Message", "Lee-Ann Shearing", getResources().getString(R.string.dg_message), "", "",R.mipmap.lee_ann_shearing));
-        adapter.add(new Speakers("District Rotaract Representative's Message", "Martin Mavesera", getResources().getString(R.string.drr_message), "", "",R.mipmap.drr_pic));
+//        adapter.add(new Speakers("Rotary International President's Message", "John F. Germ", getResources().getString(R.string.john_germ), "", "",R.mipmap.john_germ));
+//        adapter.add(new Speakers("Convenor's Message", "Allistar Volo", getResources().getString(R.string.a_Volo), "", "",R.mipmap.allistar_volo));
+//        adapter.add(new Speakers("District Governor's Message", "Lee-Ann Shearing", getResources().getString(R.string.dg_message), "", "",R.mipmap.lee_ann_shearing));
+//        adapter.add(new Speakers("District Rotaract Representative's Message", "Martin Mavesera", getResources().getString(R.string.drr_message), "", "",R.mipmap.drr_pic));
+//
+        DBHelper helper = new DBHelper(MenuActivity.this);
+        ArrayList<Message> messages = helper.getMessages(getIntent().getStringExtra("event"));
+        Iterator iterator = messages.iterator();
+        Message m;
+        while (iterator.hasNext()) {
+            m = (Message) iterator.next();
+            adapter.add(new Speakers(m.getTitle(), m.getName(), m.getMessage(), "", "", R.mipmap.lee_ann_shearing));
+        }
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,7 +156,8 @@ public class MenuActivity extends AppCompatActivity {
                     speakerIntent.putExtra("name", theSpeaker.getProfession())
                             .putExtra("profession", theSpeaker.getName())
                             .putExtra("bio_brief", theSpeaker.getBioBrief())
-                            .putExtra("pic", theSpeaker.getPic());
+                            .putExtra("pic", theSpeaker.getPic())
+                            .putExtra("event", getIntent().getStringExtra("event"));
 
                     startActivity(speakerIntent);
             }
@@ -209,6 +221,7 @@ public class MenuActivity extends AppCompatActivity {
             ImageView ivSpeakerPic;
             TextView tvName;
 
+            @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View v = convertView;
@@ -322,6 +335,7 @@ public class MenuActivity extends AppCompatActivity {
     public void populateProjects(){
         //create a design of a list item for the
         adapter = new SpeakersArrayAdapter(this){
+            @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View v = convertView;
@@ -341,7 +355,7 @@ public class MenuActivity extends AppCompatActivity {
                 ivSpeakerPic.setVisibility(View.GONE);
                 if (speakerobj.getPic() != 0){
                     ivSpeakerPic.setImageResource(speakerobj.getPic());
-                    ivSpeakerPic.setBackgroundColor(00000000);
+                    ivSpeakerPic.setBackgroundColor(0);
                 }
                 tvName.setText("" + speakerobj.getName());
 
@@ -395,12 +409,13 @@ public class MenuActivity extends AppCompatActivity {
     class myAdapter extends ArrayAdapter<Club>{
         TextView tvName,tvCountry,tvCity,tvContact;
 
-        public myAdapter(Context context, ArrayList<Club> objects) {
+        myAdapter(Context context, ArrayList<Club> objects) {
             super(context, R.layout.layout_clubs, objects);
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             View v = convertView;
             if (v==null){
                 LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
